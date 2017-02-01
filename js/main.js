@@ -1,6 +1,5 @@
 console.log( "js loading" );
 
-
 // get element with id result
 var result = document.getElementById( 'result' );
 console.log( result );
@@ -40,7 +39,7 @@ for( i = 0; i < input.length; i++ ){
 }
 
 // set empty variable
-var currentInputs = "";
+var currentInputs = '';
 
 // store values in the variable
 function addToText( text ){
@@ -51,14 +50,35 @@ function addToText( text ){
 	console.log( currentInputs );
 };
 
-// print result
-function printResult(){
-	displayer.placeholder = eval( currentInputs );
-	console.log( 'printing results' );
-	console.log(eval( currentInputs ));
-};
-
 // clear screen
 function clearScreen(){
-	currentInputs = "";
+	currentInputs = '';
+	displayer.placeholder = 0;
+	console.log( 'current results =' + currentInputs );
 }
+
+// test results
+function testInputs(){
+	try	{
+	eval(currentInputs);
+	} catch ( a ) {
+		if ( a instanceof SyntaxError ) {
+			displayer.placeholder = "Error!";
+		} else {
+		 	throw ( finishHim() );
+		}
+	}
+}
+
+// print result
+function printResult(){
+	if ( currentInputs == undefined || currentInputs == '' ) {
+		displayer.placeholder = 0;
+	} else {
+		testInputs();
+		currentInputs = eval( currentInputs );
+		displayer.placeholder = currentInputs;
+		console.log( 'printing results' );
+		console.log(eval( currentInputs ));
+	}
+};
